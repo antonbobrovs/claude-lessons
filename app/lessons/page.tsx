@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import pool from '@/lib/db'
 
+export const dynamic = 'force-dynamic'
+
 type Lesson = {
   id: number
   title: string

@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import pool from '@/lib/db'
 
+export const dynamic = 'force-dynamic'
+
 type Lesson = {
   id: number
   chapter_id: number
