@@ -1,5 +1,5 @@
 import pool from '@/lib/db'
-import Sidebar from '@/components/Sidebar'
+import LessonsShell from '@/components/LessonsShell'
 import type { Chapter } from '@/types'
 
 export const dynamic = 'force-dynamic'
@@ -32,12 +32,5 @@ export default async function LessonsLayout({
 }) {
   const chapters = await getChapters()
 
-  return (
-    <div className="flex min-h-screen">
-      <Sidebar chapters={chapters} />
-      <div className="flex-1 min-w-0">
-        {children}
-      </div>
-    </div>
-  )
+  return <LessonsShell chapters={chapters}>{children}</LessonsShell>
 }

@@ -61,6 +61,15 @@
 - `.dockerignore` создан: исключены `node_modules`, `.next`, `.env*`, `.git`
 - CI/CD: автодеплой настраивается через Dokploy Settings → Auto Deploy (webhook)
 
+### Фаза 5 — выполнена (2026-04-17)
+- SEO: `app/layout.tsx` — title template, description, og-метаданные
+- SEO: динамические метаданные на странице урока (`generateMetadata`)
+- Мобильная вёрстка: `LessonsShell.tsx` управляет состоянием мобильного меню
+- Сайдбар: мобильный drawer с backdrop, кнопка закрытия, закрывается при переходе
+- `app/lessons/loading.tsx` и `[lessonSlug]/loading.tsx` — skeleton-состояния
+- `app/lessons/error.tsx` — обработка ошибок с кнопкой «Попробовать снова»
+- Осталось: заполнить контент 5–7 уроков для демо
+
 ## Конвенции
 - Seed-скрипты пишутся как `.js` (не `.ts`) для запуска через `node` без доп. зависимостей
 - Миграции — нумерованные SQL-файлы в `migrations/` (`001_init.sql`, `002_...sql`)

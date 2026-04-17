@@ -1,11 +1,25 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 import pool from '@/lib/db'
 import MarkdownContent from '@/components/MarkdownContent'
 import CompleteButton from '@/components/CompleteButton'
 import type { LessonWithNav } from '@/types'
 
 export const dynamic = 'force-dynamic'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { chapterSlug: string; lessonSlug: string }
+}): Promise<Metadata> {
+  const lesson = await getLesson(params.chapterSlug, params.lessonSlug)
+  if (!lesson) return {}
+  return {
+    title: lesson.title,
+    description: `${lesson.chapter_title} — ${lesson.title}`,
+  }
+}
 
 async function getLesson(chapterSlug: string, lessonSlug: string): Promise<LessonWithNav | null> {
   const { rows } = await pool.query<{
