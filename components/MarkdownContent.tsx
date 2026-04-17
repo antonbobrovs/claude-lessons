@@ -9,12 +9,13 @@ export default function MarkdownContent({ content }: { content: string }) {
   }
 
   return (
-    <ReactMarkdown
-      remarkPlugins={[remarkGfm]}
-      rehypePlugins={[rehypeHighlight]}
-      className="prose prose-neutral max-w-none"
-    >
-      {content}
-    </ReactMarkdown>
+    <div className="prose prose-neutral max-w-none">
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeHighlight]}
+      >
+        {content}
+      </ReactMarkdown>
+    </div>
   )
 }
