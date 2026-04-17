@@ -26,7 +26,7 @@
 - Dockerfile нужен для standalone Next.js build
 - Переменные окружения: DATABASE_URL
 - Продакшн: https://claudelessons.insight-navigator.ru/
-- При старте контейнера автоматически: migrate → seed → server
+- При старте контейнера автоматически: migrate → seed → seed_content → server
 
 ## Статус проекта
 
@@ -68,7 +68,13 @@
 - Сайдбар: мобильный drawer с backdrop, кнопка закрытия, закрывается при переходе
 - `app/lessons/loading.tsx` и `[lessonSlug]/loading.tsx` — skeleton-состояния
 - `app/lessons/error.tsx` — обработка ошибок с кнопкой «Попробовать снова»
-- Осталось: заполнить контент 5–7 уроков для демо
+- Главы с одним уроком: показываются как прямая ссылка (без вложенного sub-item)
+
+### Фаза 6 — выполнена (2026-04-17)
+- `scripts/seed_content.js` — Markdown-контент для всех 32 уроков (idempotent UPDATE)
+- Контент структурирован: введение → теория → примеры → итог
+- Источник: официальная документация code.claude.com/docs/ru/
+- Dockerfile обновлён: `migrate → seed → seed_content → server`
 
 ## Конвенции
 - Seed-скрипты пишутся как `.js` (не `.ts`) для запуска через `node` без доп. зависимостей

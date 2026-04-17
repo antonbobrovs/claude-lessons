@@ -1,8 +1,8 @@
 # PRD: Веб-платформа курса «Claude Code»
 
-**Версия:** 1.0 · Апрель 2026  
+**Версия:** 1.1 · Апрель 2026  
 **Продакшн:** claudelessons.insight-navigator.ru  
-**Статус:** MVP → 3–4 недели
+**Статус:** MVP готов (Фазы 1–6), в работе: Фазы 7–8
 
 ---
 
@@ -20,7 +20,7 @@
 | Язык | TypeScript (строгий, no-implicit-any) |
 | Стили | Tailwind CSS (единственная система) |
 | База данных | PostgreSQL через Dokploy на VPS |
-| ORM | Drizzle ORM или kysely (рекомендуется) |
+| ORM | Нет (нативный pg Pool) |
 | Markdown | react-markdown + remark-gfm |
 | Подсветка кода | shiki или highlight.js |
 | Прогресс | localStorage (без авторизации) |
@@ -83,7 +83,12 @@ CREATE TABLE lessons (
 - **P1:** Seed-данные — все 25 глав из программы курса
 - **P1:** Прогресс-бар (X из N уроков завершено)
 
-### Вне скоупа (v2+)
+### В скоупе (v2 — в работе)
+- **P1:** Markdown-контент для всех 32 уроков ✅ Фаза 6
+- **P1:** Практические задания (1–2 на урок) — Фаза 7
+- **P1:** Проверочные тесты (урок + глава) — Фаза 8
+
+### Вне скоупа (v3+)
 - Авторизация и аккаунты
 - Комментарии и обсуждения
 - Видео-уроки
@@ -137,13 +142,33 @@ CREATE TABLE lessons (
 - [ ] Настроить проект в Dokploy: GitHub repo, env vars, `DATABASE_URL`
 - [ ] Первый деплой на `claudelessons.insight-navigator.ru`
 
-### Фаза 5 — Контент и полировка (Дни 7–14)
-- [ ] Заполнить контент 5–7 уроков для демо
-- [ ] Настроить метаданные (title, description, og:image) для SEO
-- [ ] Адаптивная вёрстка (mobile + desktop)
-- [ ] Прогресс-бар: X из N уроков завершено
-- [ ] Loading/skeleton состояния, обработка ошибок
-- [ ] Настройка CI/CD: автодеплой при пуше в `main`
+### Фаза 5 — Контент и полировка ✅ выполнена (2026-04-17)
+- [x] Настроить метаданные (title, description, og:image) для SEO
+- [x] Адаптивная вёрстка (mobile + desktop), мобильный drawer
+- [x] Прогресс-бар: X из N уроков завершено
+- [x] Loading/skeleton состояния, обработка ошибок
+- [x] Настройка CI/CD: автодеплой через Dokploy webhook
+- [x] Главы с одним уроком: прямая ссылка без sub-item
+
+### Фаза 6 — Контент уроков ✅ выполнена (2026-04-17)
+- [x] `scripts/seed_content.js` — Markdown-контент для всех 32 уроков
+- [x] Структура каждого урока: введение → теория → примеры → итог
+- [x] Источник: официальная документация code.claude.com/docs/ru/
+- [x] Dockerfile: `migrate → seed → seed_content → server`
+
+### Фаза 7 — Практические задания (в плане)
+- [ ] `migrations/002_assignments.sql` — таблица assignments
+- [ ] `scripts/seed_assignments.js` — 1–2 задания на урок
+- [ ] `components/AssignmentBlock.tsx` — карточка с подсказками (accordion)
+- [ ] `hooks/useAssignmentProgress.ts` — localStorage прогресс
+- [ ] Обновить `types/index.ts` и страницу урока
+
+### Фаза 8 — Проверочные тесты (в плане)
+- [ ] `migrations/003_quizzes.sql` — таблицы quizzes + quiz_questions
+- [ ] `scripts/seed_quizzes.js` — 3–5 вопросов на урок, 5–7 на главу
+- [ ] `components/QuizBlock.tsx` — вопросы A/B/C/D, объяснения, итог
+- [ ] `hooks/useQuizProgress.ts` — localStorage результаты
+- [ ] Тест главы: `/lessons/[chapterSlug]/test`
 
 ---
 
