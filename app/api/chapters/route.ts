@@ -1,28 +1,21 @@
 import { NextResponse } from 'next/server'
 import pool from '@/lib/db'
-
-type Lesson = {
-  id: number
-  chapter_id: number
-  title: string
-  slug: string
-  content: string
-  order: number
-}
-
-type ChapterWithLessons = {
-  id: number
-  title: string
-  slug: string
-  order: number
-  lessons: Lesson[] | null
-}
+import type { Chapter } from '@/types'
 
 export async function GET() {
   try {
-    const { rows } = await pool.query<ChapterWithLessons>(`
+    const { rows } = await pool.query<Chapter>(`
       SELECT c.*,
-             json_agg(l.* ORDER BY l.order) AS lessons
+             json_agg(
+               json_build_object(
+                 'id', l.id,
+                 'chapter_id', l.chapter_id,
+                 'title', l.title,
+                 'slug', l.slug,
+                 'content', l.content,
+                 'order', l.order
+               ) ORDER BY l.order
+             ) FILTER (WHERE l.id IS NOT NULL) AS lessons
       FROM chapters c
       LEFT JOIN lessons l ON l.chapter_id = c.id
       GROUP BY c.id
