@@ -2,7 +2,7 @@
 
 **Версия:** 1.1 · Апрель 2026  
 **Продакшн:** claudelessons.insight-navigator.ru  
-**Статус:** MVP готов (Фазы 1–6), в работе: Фазы 7–8
+**Статус:** MVP готов (Фазы 1–7), в работе: Фаза 8
 
 ---
 
@@ -85,7 +85,7 @@ CREATE TABLE lessons (
 
 ### В скоупе (v2 — в работе)
 - **P1:** Markdown-контент для всех 32 уроков ✅ Фаза 6
-- **P1:** Практические задания (1–2 на урок) — Фаза 7
+- **P1:** Практические задания (1–2 на урок) ✅ Фаза 7
 - **P1:** Проверочные тесты (урок + глава) — Фаза 8
 
 ### Вне скоупа (v3+)
@@ -156,12 +156,12 @@ CREATE TABLE lessons (
 - [x] Источник: официальная документация code.claude.com/docs/ru/
 - [x] Dockerfile: `migrate → seed → seed_content → server`
 
-### Фаза 7 — Практические задания (в плане)
-- [ ] `migrations/002_assignments.sql` — таблица assignments
-- [ ] `scripts/seed_assignments.js` — 1–2 задания на урок
-- [ ] `components/AssignmentBlock.tsx` — карточка с подсказками (accordion)
-- [ ] `hooks/useAssignmentProgress.ts` — localStorage прогресс
-- [ ] Обновить `types/index.ts` и страницу урока
+### Фаза 7 — Практические задания ✅ выполнена (2026-04-17)
+- [x] `migrations/002_assignments.sql` — таблица assignments с UNIQUE(lesson_id, order)
+- [x] `scripts/seed_assignments.js` — 1–2 задания на каждый из 32 уроков
+- [x] `components/AssignmentBlock.tsx` — карточка с Markdown-описанием и accordion подсказками
+- [x] `hooks/useAssignmentProgress.ts` — localStorage прогресс с toggle
+- [x] `types/index.ts` и страница урока обновлены
 
 ### Фаза 8 — Проверочные тесты (в плане)
 - [ ] `migrations/003_quizzes.sql` — таблицы quizzes + quiz_questions
