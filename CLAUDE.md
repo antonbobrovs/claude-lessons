@@ -25,3 +25,4 @@
 ## Деплой
 - Dockerfile нужен для standalone Next.js build
 - Переменные окружения: DATABASE_URL
+- Продакшн: https://claudelessons.insight-navigator.ru/
