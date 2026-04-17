@@ -27,3 +27,12 @@ export type LessonWithNav = Lesson & {
   prev: LessonNav | null
   next: LessonNav | null
 }
+
+export type Assignment = {
+  id: number
+  lesson_id: number
+  title: string
+  description: string
+  hints: string[]
+  order: number
+}

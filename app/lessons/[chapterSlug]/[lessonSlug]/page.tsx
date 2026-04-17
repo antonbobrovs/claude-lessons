@@ -4,7 +4,8 @@ import type { Metadata } from 'next'
 import pool from '@/lib/db'
 import MarkdownContent from '@/components/MarkdownContent'
 import CompleteButton from '@/components/CompleteButton'
-import type { LessonWithNav } from '@/types'
+import AssignmentList from '@/components/AssignmentList'
+import type { LessonWithNav, Assignment } from '@/types'
 
 export const dynamic = 'force-dynamic'
 
@@ -79,6 +80,31 @@ async function getLesson(chapterSlug: string, lessonSlug: string): Promise<Lesso
   }
 }
 
+async function getAssignments(lessonId: number): Promise<Assignment[]> {
+  const { rows } = await pool.query<{
+    id: number
+    lesson_id: number
+    title: string
+    description: string
+    hints: string[]
+    order: number
+  }>(
+    `SELECT id, lesson_id, title, description, hints, "order"
+     FROM assignments
+     WHERE lesson_id = $1
+     ORDER BY "order" ASC`,
+    [lessonId]
+  )
+  return rows.map(row => ({
+    id: row.id,
+    lesson_id: row.lesson_id,
+    title: row.title,
+    description: row.description,
+    hints: Array.isArray(row.hints) ? row.hints : [],
+    order: row.order,
+  }))
+}
+
 export default async function LessonPage({
   params,
 }: {
@@ -87,6 +113,8 @@ export default async function LessonPage({
   const lesson = await getLesson(params.chapterSlug, params.lessonSlug)
 
   if (!lesson) notFound()
+
+  const assignments = await getAssignments(lesson.id)
 
   return (
     <main className="max-w-2xl mx-auto px-4 py-12">
@@ -101,6 +129,8 @@ export default async function LessonPage({
       <h1 className="text-3xl font-bold mb-8">{lesson.title}</h1>
 
       <MarkdownContent content={lesson.content} />
+
+      <AssignmentList assignments={assignments} />
 
       <CompleteButton lessonSlug={lesson.slug} />
 
