@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import pool from '@/lib/db'
+import MarkdownContent from '@/components/MarkdownContent'
+import CompleteButton from '@/components/CompleteButton'
 import type { LessonWithNav } from '@/types'
 
 export const dynamic = 'force-dynamic'
@@ -84,9 +86,9 @@ export default async function LessonPage({
 
       <h1 className="text-3xl font-bold mb-8">{lesson.title}</h1>
 
-      <div className="prose prose-neutral max-w-none whitespace-pre-wrap">
-        {lesson.content || <span className="text-gray-400">Содержимое урока ещё не добавлено.</span>}
-      </div>
+      <MarkdownContent content={lesson.content} />
+
+      <CompleteButton lessonSlug={lesson.slug} />
 
       <nav className="mt-12 flex justify-between gap-4 border-t pt-6">
         {lesson.prev ? (

@@ -6,7 +6,7 @@ const config: Config = {
     './components/**/*.{ts,tsx}',
   ],
   theme: { extend: {} },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 }
 
 export default config

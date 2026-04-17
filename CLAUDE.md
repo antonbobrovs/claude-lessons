@@ -47,12 +47,19 @@
 - Страница урока показывает кнопки «← Назад» / «Вперёд →» с названиями соседних уроков
 - `/lessons` использует компонент `ChapterList`
 
-### Фаза 3 — следующая
-- Установить `react-markdown` + `remark-gfm` + подсветка кода
-- Хук `useProgress` (localStorage, SSR-safe через useEffect)
-- Кнопка «Завершить урок» + индикаторы на списке глав
-- Прогресс-бар (X из N уроков завершено)
-- Layout с сайдбаром навигации
+### Фаза 3 — выполнена (2026-04-17)
+- Установлены: `react-markdown`, `remark-gfm`, `rehype-highlight`, `highlight.js`, `@tailwindcss/typography`
+- `components/MarkdownContent.tsx` — рендер Markdown с подсветкой кода (client component)
+- `hooks/useProgress.ts` — SSR-safe localStorage хук (читает в useEffect)
+- `components/CompleteButton.tsx` — кнопка «Завершить урок»
+- `components/ProgressBar.tsx` — прогресс-бар (X из N уроков)
+- `components/Sidebar.tsx` — боковая навигация с индикаторами прогресса (desktop only)
+- `app/lessons/layout.tsx` — layout с сайдбаром для всех /lessons маршрутов
+- `ChapterList.tsx` обновлён: индикаторы завершённых уроков
+
+### Фаза 4 — следующая (Docker/деплой — большей частью готова)
+- Проверить `.dockerignore`
+- Настроить CI/CD автодеплой при пуше в `main` (если не настроен в Dokploy)
 
 ## Конвенции
 - Seed-скрипты пишутся как `.js` (не `.ts`) для запуска через `node` без доп. зависимостей

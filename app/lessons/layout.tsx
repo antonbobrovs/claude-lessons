@@ -1,6 +1,5 @@
 import pool from '@/lib/db'
-import ChapterList from '@/components/ChapterList'
-import ProgressBar from '@/components/ProgressBar'
+import Sidebar from '@/components/Sidebar'
 import type { Chapter } from '@/types'
 
 export const dynamic = 'force-dynamic'
@@ -26,14 +25,19 @@ async function getChapters(): Promise<Chapter[]> {
   return rows
 }
 
-export default async function LessonsPage() {
+export default async function LessonsLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   const chapters = await getChapters()
 
   return (
-    <main className="max-w-2xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold mb-6">Курс по Claude Code</h1>
-      <ProgressBar chapters={chapters} />
-      <ChapterList chapters={chapters} />
-    </main>
+    <div className="flex min-h-screen">
+      <Sidebar chapters={chapters} />
+      <div className="flex-1 min-w-0">
+        {children}
+      </div>
+    </div>
   )
 }
